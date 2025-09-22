@@ -5,15 +5,16 @@ import heroImage from "@/assets/hero-ayurveda.jpg";
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax */}
+      {/* Background Image with Parallax and Blur */}
       <div 
         className="absolute inset-0 parallax bg-cover bg-center bg-no-repeat"
         style={{ 
           backgroundImage: `url(${heroImage})`,
-          transform: 'translateZ(0)'
+          transform: 'translateZ(0)',
+          filter: 'blur(2px)'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 to-primary/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/85 to-primary/70"></div>
       </div>
 
       {/* Floating Elements */}
@@ -30,10 +31,10 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-heading font-bold text-white mb-6 leading-tight">
-            Authentic <span className="gradient-accent-text">Ayurveda</span>
+          <h1 className="text-5xl md:text-7xl font-heading font-black text-white mb-6 leading-tight drop-shadow-2xl">
+            Authentic <span className="text-accent font-black">Ayurveda</span>
             <br />
-            <span className="text-glow">Anytime.</span>
+            <span className="font-black">Anytime.</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">

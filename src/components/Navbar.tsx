@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Menu, X, Search, User, LogIn } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navLinks = [
     { name: "Home", href: "#hero" },
@@ -22,7 +24,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <a 
               href="#hero" 
-              className="text-2xl font-heading font-bold gradient-text hover:text-glow transition-all duration-300"
+              className="text-2xl font-heading font-bold text-primary hover:text-primary-dark transition-all duration-300 filter blur-[0.5px] hover:blur-none"
             >
               Prana Ayurveda
             </a>
@@ -44,8 +46,50 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Search Bar & Actions */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Search Bar */}
+            <div className="relative">
+              {isSearchOpen ? (
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="text"
+                    placeholder="Search products..."
+                    className="w-64 glass border-accent/30 focus:border-primary"
+                    autoFocus
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsSearchOpen(false)}
+                    className="text-foreground hover:text-primary"
+                  >
+                    <X size={16} />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsSearchOpen(true)}
+                  className="text-foreground hover:text-primary"
+                >
+                  <Search size={20} />
+                </Button>
+              )}
+            </div>
+
+            {/* Login/Register */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-foreground hover:text-primary flex items-center space-x-1"
+            >
+              <LogIn size={18} />
+              <span>Login</span>
+            </Button>
+
+            {/* Get Started Button */}
             <Button variant="hero" className="btn-glow">
               Get Started
             </Button>
@@ -66,6 +110,20 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-card/95 backdrop-blur-lg rounded-lg mt-2 border border-accent/20">
+              {/* Mobile Search */}
+              <div className="px-3 py-2">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="text"
+                    placeholder="Search products..."
+                    className="flex-1 glass border-accent/30 focus:border-primary"
+                  />
+                  <Button variant="ghost" size="sm">
+                    <Search size={16} />
+                  </Button>
+                </div>
+              </div>
+              
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -76,6 +134,15 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
+              
+              {/* Mobile Login */}
+              <div className="px-3 py-2">
+                <Button variant="outline" size="sm" className="w-full mb-2 flex items-center justify-center space-x-2">
+                  <LogIn size={16} />
+                  <span>Login / Register</span>
+                </Button>
+              </div>
+              
               <div className="px-3 py-2">
                 <Button variant="hero" size="sm" className="w-full">
                   Get Started
