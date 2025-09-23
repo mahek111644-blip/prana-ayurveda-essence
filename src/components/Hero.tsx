@@ -10,8 +10,8 @@ const Hero = () => {
         className="absolute inset-0 parallax bg-cover bg-center bg-no-repeat"
         style={{ 
           backgroundImage: `url(${heroImage})`,
-          transform: 'translateZ(0)',
-          filter: 'blur(2px)'
+          transform: 'translateZ(0) scale(1.1)',
+          filter: 'blur(4px)'
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/85 to-primary/70"></div>
@@ -31,11 +31,25 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-heading font-black text-white mb-6 leading-tight drop-shadow-2xl">
-            Authentic <span className="text-accent font-black">Ayurveda</span>
-            <br />
-            <span className="font-black">Anytime.</span>
+          {/* Brand Name */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 leading-tight">
+            <span className="block text-secondary-foreground font-bold text-5xl md:text-6xl lg:text-7xl drop-shadow-2xl">
+              Prana Ayurveda
+            </span>
           </h1>
+          
+          {/* Main Heading */}
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold mb-6 leading-tight">
+            <span className="block text-white drop-shadow-2xl font-bold">
+              Authentic
+            </span>
+            <span className="block text-primary font-bold drop-shadow-2xl">
+              Ayurveda
+            </span>
+            <span className="block text-white drop-shadow-2xl font-bold">
+              Anytime.
+            </span>
+          </h2>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Discover the ancient wisdom of Ayurveda with our premium, authentic products crafted 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Menu, X, Search, User, LogIn } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,14 +81,16 @@ const Navbar = () => {
             </div>
 
             {/* Login/Register */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-foreground hover:text-primary flex items-center space-x-1"
-            >
-              <LogIn size={18} />
-              <span>Login</span>
-            </Button>
+            <Link to="/profile">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-foreground hover:text-primary flex items-center space-x-1"
+              >
+                <User size={18} />
+                <span>Profile</span>
+              </Button>
+            </Link>
 
             {/* Get Started Button */}
             <Button variant="hero" className="btn-glow">
@@ -137,10 +140,12 @@ const Navbar = () => {
               
               {/* Mobile Login */}
               <div className="px-3 py-2">
-                <Button variant="outline" size="sm" className="w-full mb-2 flex items-center justify-center space-x-2">
-                  <LogIn size={16} />
-                  <span>Login / Register</span>
-                </Button>
+                <Link to="/profile" className="block">
+                  <Button variant="outline" size="sm" className="w-full mb-2 flex items-center justify-center space-x-2">
+                    <User size={16} />
+                    <span>Profile</span>
+                  </Button>
+                </Link>
               </div>
               
               <div className="px-3 py-2">
