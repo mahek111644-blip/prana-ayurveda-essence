@@ -5,16 +5,15 @@ import heroImage from "@/assets/hero-ayurveda.jpg";
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Parallax and Blur */}
+      {/* Background Image with Parallax */}
       <div 
         className="absolute inset-0 parallax bg-cover bg-center bg-no-repeat"
         style={{ 
           backgroundImage: `url(${heroImage})`,
-          transform: 'translateZ(0) scale(1.1)',
-          filter: 'blur(4px)'
+          transform: 'translateZ(0)'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/85 to-primary/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/80 to-primary/60"></div>
       </div>
 
       {/* Floating Elements */}
@@ -31,25 +30,11 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="fade-in-up">
-          {/* Brand Name */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 leading-tight">
-            <span className="block text-secondary-foreground font-bold text-5xl md:text-6xl lg:text-7xl drop-shadow-2xl">
-              Prana Ayurveda
-            </span>
+          <h1 className="text-5xl md:text-7xl font-heading font-bold text-white mb-6 leading-tight">
+            Authentic <span className="gradient-accent-text">Ayurveda</span>
+            <br />
+            <span className="text-glow">Anytime.</span>
           </h1>
-          
-          {/* Main Heading */}
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-extrabold mb-6 leading-tight">
-            <span className="block text-white drop-shadow-2xl font-bold">
-              Authentic
-            </span>
-            <span className="block text-primary font-bold drop-shadow-2xl">
-              Ayurveda
-            </span>
-            <span className="block text-white drop-shadow-2xl font-bold">
-              Anytime.
-            </span>
-          </h2>
           
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Discover the ancient wisdom of Ayurveda with our premium, authentic products crafted 
