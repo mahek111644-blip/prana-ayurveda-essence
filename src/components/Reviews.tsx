@@ -12,7 +12,7 @@ const Reviews = () => {
       location: "Mumbai, India",
       rating: 5,
       text: "Prana Ayurveda has transformed my wellness routine. The Ashwagandha blend helped me manage stress naturally, and I feel more balanced than ever.",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
       product: "Ashwagandha Premium"
     },
     {
@@ -21,7 +21,7 @@ const Reviews = () => {
       location: "Delhi, India", 
       rating: 5,
       text: "The quality is exceptional. I've tried many Ayurvedic brands, but Prana's formulations are in a league of their own. Highly recommend!",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
       product: "Turmeric Golden Milk"
     },
     {
@@ -30,7 +30,7 @@ const Reviews = () => {
       location: "Bangalore, India",
       rating: 5,
       text: "As someone who practices traditional Ayurveda, I appreciate the authenticity of these products. They truly honor the ancient wisdom.",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face", 
+      image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face", 
       product: "Brahmi Mind Tonic"
     },
     {
@@ -39,7 +39,7 @@ const Reviews = () => {
       location: "Hyderabad, India",
       rating: 5,
       text: "The customer service is outstanding, and the products delivered exactly what was promised. My sleep and energy levels have improved dramatically.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
       product: "Triphala Detox"
     },
     {
@@ -48,8 +48,35 @@ const Reviews = () => {
       location: "Chennai, India",
       rating: 5,
       text: "I love how natural and pure these products are. No artificial additives, just pure Ayurvedic goodness that works.",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
       product: "Complete Wellness Package"
+    },
+    {
+      id: 6,
+      name: "Vikram Singh",
+      location: "Pune, India",
+      rating: 5,
+      text: "My digestion has improved significantly since I started using Prana's Triphala. The results are visible within weeks!",
+      image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150&h=150&fit=crop&crop=face",
+      product: "Triphala Detox"
+    },
+    {
+      id: 7,
+      name: "Kavita Menon",
+      location: "Kochi, India",
+      rating: 5,
+      text: "Being a yoga instructor, I recommend Prana Ayurveda to all my students. The quality and authenticity are unmatched.",
+      image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&h=150&fit=crop&crop=face",
+      product: "Ashwagandha Premium"
+    },
+    {
+      id: 8,
+      name: "Aditya Desai",
+      location: "Ahmedabad, India",
+      rating: 5,
+      text: "The Brahmi tonic has helped me stay focused during long work hours. No more afternoon slumps!",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
+      product: "Brahmi Mind Tonic"
     }
   ];
 
