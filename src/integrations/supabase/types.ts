@@ -14,7 +14,161 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      articles: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          doctor_id: string | null
+          excerpt: string | null
+          id: string
+          image_url: string | null
+          published_at: string | null
+          read_time: number | null
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string | null
+          doctor_id?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          published_at?: string | null
+          read_time?: number | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          doctor_id?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          published_at?: string | null
+          read_time?: number | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "articles_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doctors: {
+        Row: {
+          bio: string | null
+          certifications: string[] | null
+          created_at: string | null
+          experience_years: number | null
+          id: string
+          image_url: string | null
+          name: string
+          specialization: string
+          title: string
+        }
+        Insert: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string | null
+          experience_years?: number | null
+          id?: string
+          image_url?: string | null
+          name: string
+          specialization: string
+          title: string
+        }
+        Update: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string | null
+          experience_years?: number | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          specialization?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          approved: boolean | null
+          created_at: string | null
+          id: string
+          image_url: string | null
+          location: string
+          name: string
+          product: string
+          rating: number | null
+          review_text: string
+          user_id: string | null
+        }
+        Insert: {
+          approved?: boolean | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          location: string
+          name: string
+          product: string
+          rating?: number | null
+          review_text: string
+          user_id?: string | null
+        }
+        Update: {
+          approved?: boolean | null
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string
+          name?: string
+          product?: string
+          rating?: number | null
+          review_text?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
