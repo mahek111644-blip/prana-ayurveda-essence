@@ -1,86 +1,178 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User as UserType, Session } from "@supabase/supabase-js";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<UserType | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set up auth state listener FIRST
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Could not log out",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "You've been logged out",
+      });
+      navigate("/");
+    }
+  };
 
   const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Products", href: "#products" },
-    { name: "Blog", href: "#blog" },
-    { name: "Reviews", href: "#reviews" },
-    { name: "Contact", href: "#contact" },
+    { href: "/#about", label: "About" },
+    { href: "/#products", label: "Products" },
+    { href: "/articles", label: "Articles" },
+    { href: "/#reviews", label: "Reviews" },
+    { href: "/#contact", label: "Contact" },
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 glass border-b border-accent/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <a 
-              href="#hero" 
-              className="text-2xl font-heading font-bold gradient-text hover:text-glow transition-all duration-300"
-            >
+          <Link to="/" className="flex items-center">
+            <span className="text-2xl font-heading font-bold gradient-text">
               Prana Ayurveda
-            </a>
-          </div>
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300 relative group"
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </a>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-foreground hover:text-primary transition-colors font-medium"
+              >
+                {link.label}
+              </a>
+            ))}
+
+            {/* User Profile or Login */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage
+                        src={user.user_metadata?.avatar_url}
+                        alt={user.user_metadata?.full_name || "User"}
+                      />
+                      <AvatarFallback>
+                        <User size={20} />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>
+                    {user.user_metadata?.full_name || user.email}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button>
+                  <User size={16} className="mr-2" />
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="hero" className="btn-glow">
-              Get Started
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-foreground hover:text-primary transition-colors duration-300"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-card/95 backdrop-blur-lg rounded-lg mt-2 border border-accent/20">
+        {isOpen && (
+          <div className="md:hidden py-4 border-t border-border">
+            <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.href}
                   href={link.href}
-                  className="block px-3 py-2 text-foreground hover:text-primary transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="text-foreground hover:text-primary transition-colors font-medium px-4 py-2"
+                  onClick={() => setIsOpen(false)}
                 >
-                  {link.name}
+                  {link.label}
                 </a>
               ))}
-              <div className="px-3 py-2">
-                <Button variant="hero" size="sm" className="w-full">
-                  Get Started
-                </Button>
-              </div>
+
+              {user ? (
+                <>
+                  <div className="px-4 py-2 text-sm text-muted-foreground">
+                    {user.user_metadata?.full_name || user.email}
+                  </div>
+                  <Button
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                    variant="outline"
+                    className="mx-4"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button className="mx-4 w-[calc(100%-2rem)]">
+                    <User size={16} className="mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         )}
