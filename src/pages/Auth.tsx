@@ -29,16 +29,16 @@ const Auth = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      <div className="container mx-auto px-4 py-8">
+    <div className="relative">
+      <div className="absolute top-8 left-8 z-50">
         <Link to="/">
-          <Button variant="ghost" className="mb-8 group">
+          <Button variant="ghost" className="group shadow-lg bg-background/80 backdrop-blur-sm">
             <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Home
           </Button>
         </Link>
-        <AuthForm />
       </div>
+      <AuthForm />
     </div>
   );
 };
