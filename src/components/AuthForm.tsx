@@ -68,7 +68,8 @@ const AuthForm = () => {
         description: "Account created successfully. You're now logged in!",
       });
 
-      navigate("/");
+      // Redirect based on role
+      navigate(validated.role === "supplier" ? "/supplier" : "/");
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         toast({
@@ -107,7 +108,9 @@ const AuthForm = () => {
         description: "You've successfully logged in.",
       });
 
-      navigate("/");
+      // Get user role and redirect accordingly
+      const { data: { user } } = await supabase.auth.getUser();
+      navigate(user?.user_metadata?.role === "supplier" ? "/supplier" : "/");
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         toast({

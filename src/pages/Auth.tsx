@@ -12,7 +12,8 @@ const Auth = () => {
     // Check if user is already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate("/");
+        const role = session.user?.user_metadata?.role;
+        navigate(role === "supplier" ? "/supplier" : "/");
       }
     });
 
@@ -21,7 +22,8 @@ const Auth = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
-        navigate("/");
+        const role = session.user?.user_metadata?.role;
+        navigate(role === "supplier" ? "/supplier" : "/");
       }
     });
 
