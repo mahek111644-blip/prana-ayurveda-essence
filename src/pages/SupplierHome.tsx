@@ -4,9 +4,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
-import { Package, TrendingUp, Users, BarChart3, Plus, Settings } from "lucide-react";
+import { Package, TrendingUp, Users, BarChart3, Plus, Settings, BookOpen, Star } from "lucide-react";
 import { User as UserType, Session } from "@supabase/supabase-js";
+import ProductManagement from "@/components/supplier/ProductManagement";
+import ProductListing from "@/components/supplier/ProductListing";
+import ProductReviews from "@/components/supplier/ProductReviews";
+import BlogSection from "@/components/supplier/BlogSection";
 
 const SupplierHome = () => {
   const navigate = useNavigate();
@@ -100,56 +105,77 @@ const SupplierHome = () => {
           </div>
         </section>
 
-        {/* Quick Actions */}
-        <section className="py-12 bg-secondary/20">
+        {/* Main Content Tabs */}
+        <section className="py-12">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-heading font-bold mb-8">Quick Actions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <Package className="h-12 w-12 text-primary mb-4" />
-                  <CardTitle>Product Management</CardTitle>
-                  <CardDescription>
-                    Add, edit, or remove your Ayurvedic products from the catalog
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="outline" className="w-full">
-                    Manage Products
-                  </Button>
-                </CardContent>
-              </Card>
+            <Tabs defaultValue="products" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-5 lg:w-auto">
+                <TabsTrigger value="products" className="flex items-center gap-2">
+                  <Package className="h-4 w-4" />
+                  <span className="hidden sm:inline">Products</span>
+                </TabsTrigger>
+                <TabsTrigger value="manage" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  <span className="hidden sm:inline">Manage</span>
+                </TabsTrigger>
+                <TabsTrigger value="reviews" className="flex items-center gap-2">
+                  <Star className="h-4 w-4" />
+                  <span className="hidden sm:inline">Reviews</span>
+                </TabsTrigger>
+                <TabsTrigger value="analytics" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  <span className="hidden sm:inline">Analytics</span>
+                </TabsTrigger>
+                <TabsTrigger value="blogs" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  <span className="hidden sm:inline">Blogs</span>
+                </TabsTrigger>
+              </TabsList>
 
-              <Card className="hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <TrendingUp className="h-12 w-12 text-green-600 mb-4" />
-                  <CardTitle>Sales Analytics</CardTitle>
-                  <CardDescription>
-                    View detailed sales reports and performance metrics
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="outline" className="w-full">
-                    View Analytics
-                  </Button>
-                </CardContent>
-              </Card>
+              <TabsContent value="products" className="space-y-6">
+                <ProductListing />
+              </TabsContent>
 
-              <Card className="hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <Users className="h-12 w-12 text-blue-600 mb-4" />
-                  <CardTitle>Order Management</CardTitle>
-                  <CardDescription>
-                    Track and fulfill customer orders efficiently
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="outline" className="w-full">
-                    View Orders
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+              <TabsContent value="manage" className="space-y-6">
+                <ProductManagement />
+              </TabsContent>
+
+              <TabsContent value="reviews" className="space-y-6">
+                <ProductReviews />
+              </TabsContent>
+
+              <TabsContent value="analytics" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Sales Analytics</CardTitle>
+                    <CardDescription>
+                      Track your sales performance and metrics
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {stats.map((stat, index) => (
+                        <Card key={index}>
+                          <CardHeader className="flex flex-row items-center justify-between pb-2">
+                            <CardTitle className="text-sm font-medium text-muted-foreground">
+                              {stat.label}
+                            </CardTitle>
+                            <stat.icon className={`h-5 w-5 ${stat.color}`} />
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-3xl font-bold">{stat.value}</div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="blogs" className="space-y-6">
+                <BlogSection />
+              </TabsContent>
+            </Tabs>
           </div>
         </section>
 
