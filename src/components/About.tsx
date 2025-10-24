@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Leaf, Shield, Award, Users } from "lucide-react";
 
 const About = () => {
@@ -45,9 +46,11 @@ const About = () => {
                 generations, ensuring you receive the most potent and pure formulations nature 
                 has to offer.
               </p>
-              <Button variant="primary" size="lg" className="btn-glow shadow-glow">
-                Read Our Story
-              </Button>
+              <Link to="/our-story">
+                <Button variant="primary" size="lg" className="btn-glow shadow-glow">
+                  Read Our Story
+                </Button>
+              </Link>
             </div>
           </div>
 
