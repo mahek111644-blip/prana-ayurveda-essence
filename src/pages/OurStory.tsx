@@ -97,17 +97,6 @@ const OurStory = () => {
               </p>
             </div>
           </article>
-
-          {/* CTA */}
-          <div className="text-center mt-16">
-            <Button 
-              size="lg" 
-              onClick={() => navigate('/products')}
-              className="shadow-glow"
-            >
-              Explore Our Products
-            </Button>
-          </div>
         </div>
       </main>
 
