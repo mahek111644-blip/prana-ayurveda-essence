@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,6 +20,7 @@ const Navbar = () => {
   const [user, setUser] = useState<UserType | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -56,6 +57,31 @@ const Navbar = () => {
     }
   };
 
+  const handleNavClick = (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href === "/articles") {
+      // If on home page, scroll to blog section
+      if (location.pathname === "/") {
+        e.preventDefault();
+        const blogSection = document.getElementById("blog");
+        if (blogSection) {
+          blogSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      // Otherwise navigate to /articles page
+    } else if (href.startsWith("/#")) {
+      // For hash links, handle smooth scroll on home page
+      if (location.pathname === "/") {
+        e.preventDefault();
+        const id = href.replace("/#", "");
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+    setIsOpen(false);
+  };
+
   const navLinks = [
     { href: "/#about", label: "About" },
     { href: "/#products", label: "Products" },
@@ -81,6 +107,7 @@ const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleNavClick(link.href, e)}
                 className="text-foreground hover:text-primary transition-colors font-medium"
               >
                 {link.label}
@@ -142,7 +169,7 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   className="text-foreground hover:text-primary transition-colors font-medium px-4 py-2"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(link.href, e)}
                 >
                   {link.label}
                 </a>

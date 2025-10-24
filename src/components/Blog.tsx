@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, ArrowRight, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const blogPosts = [
     {
       id: 1,
+      slug: "ashwagandha-modern-research",
       title: "The Science Behind Ashwagandha: Ancient Wisdom Meets Modern Research",
       excerpt: "Discover how modern science validates the traditional uses of Ashwagandha for stress relief and cognitive enhancement.",
       image: "https://images.unsplash.com/photo-1609038677224-c8ae18b08b96?w=600&h=400&fit=crop",
@@ -15,6 +17,7 @@ const Blog = () => {
     },
     {
       id: 2,
+      slug: "ayurvedic-morning-routines",
       title: "Ayurvedic Morning Routines for Optimal Health",
       excerpt: "Transform your mornings with time-tested Ayurvedic practices that promote balance and vitality throughout the day.",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
@@ -24,6 +27,7 @@ const Blog = () => {
     },
     {
       id: 3,
+      slug: "understanding-doshas",
       title: "Understanding Your Dosha: A Complete Guide to Ayurvedic Body Types",
       excerpt: "Learn about the three doshas and how understanding your unique constitution can guide your wellness journey.",
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
@@ -50,11 +54,11 @@ const Blog = () => {
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {blogPosts.map((post, index) => (
-            <Card 
-              key={post.id} 
-              className="card-3d group overflow-hidden border-0 shadow-soft hover:shadow-glow transition-all duration-500 bg-card"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
+            <Link key={post.id} to={`/articles/${post.slug}`}>
+              <Card 
+                className="card-3d group overflow-hidden border-0 shadow-soft hover:shadow-glow transition-all duration-500 bg-card h-full"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
               <div className="relative overflow-hidden">
                 <img 
                   src={post.image} 
@@ -102,15 +106,18 @@ const Blog = () => {
                   />
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 
         {/* CTA Section */}
         <div className="text-center">
-          <Button variant="primary" size="lg" className="btn-glow">
-            Explore More Articles
-          </Button>
+          <Link to="/articles">
+            <Button variant="primary" size="lg" className="btn-glow">
+              Explore More Articles
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
