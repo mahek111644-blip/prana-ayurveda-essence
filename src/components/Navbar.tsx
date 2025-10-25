@@ -135,6 +135,10 @@ const Navbar = () => {
                     {user.user_metadata?.full_name || user.email}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/profile")} className="cursor-pointer">
+                    <User size={16} className="mr-2" />
+                    My Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                     <LogOut size={16} className="mr-2" />
                     Logout

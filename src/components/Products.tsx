@@ -1,52 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import ashwagandhaImg from "@/assets/products/ashwagandha.jpg";
+import turmericImg from "@/assets/products/turmeric.jpg";
+import brahmiImg from "@/assets/products/brahmi.jpg";
 
 const Products = () => {
   const products = [
     {
       id: 1,
+      slug: "ashwagandha-premium",
       name: "Ashwagandha Premium",
       category: "Stress Relief",
-      price: "$29.99",
+      price: "₹599",
       rating: 4.9,
       reviews: 234,
-      image: "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop",
+      image: ashwagandhaImg,
       description: "Premium quality Ashwagandha for stress relief and vitality enhancement.",
       benefits: ["Reduces stress", "Improves sleep", "Boosts energy"]
     },
     {
       id: 2,
+      slug: "turmeric-golden-milk",
       name: "Turmeric Golden Milk",
       category: "Immunity",
-      price: "$24.99",
+      price: "₹449",
       rating: 4.8,
       reviews: 189,
-      image: "https://images.unsplash.com/photo-1609501676725-7186f548e03c?w=400&h=300&fit=crop",
+      image: turmericImg,
       description: "Organic turmeric blend for daily immunity and inflammation support.",
       benefits: ["Anti-inflammatory", "Immune boost", "Joint health"]
     },
     {
       id: 3,
+      slug: "brahmi-mind-tonic",
       name: "Brahmi Mind Tonic",
       category: "Mental Clarity",
-      price: "$34.99",
+      price: "₹699",
       rating: 4.9,
       reviews: 156,
-      image: "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=400&h=300&fit=crop",
+      image: brahmiImg,
       description: "Traditional Brahmi formulation for enhanced cognitive function.",
       benefits: ["Memory support", "Focus enhancement", "Mental clarity"]
-    },
-    {
-      id: 4,
-      name: "Triphala Detox",
-      category: "Digestive Health",
-      price: "$19.99",
-      rating: 4.7,
-      reviews: 298,
-      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop",
-      description: "Classic Triphala blend for gentle detoxification and digestive wellness.",
-      benefits: ["Digestive support", "Gentle cleanse", "Antioxidant rich"]
     }
   ];
 
@@ -65,19 +61,19 @@ const Products = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {products.map((product, index) => (
-            <Card 
-              key={product.id} 
-              className="card-3d group overflow-hidden border-0 shadow-soft hover:shadow-glow transition-all duration-500"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="relative overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+            <Link key={product.id} to={`/products/${product.slug}`}>
+              <Card 
+                className="card-3d group overflow-hidden border-0 shadow-soft hover:shadow-glow transition-all duration-500"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
                     <div className="flex flex-wrap gap-1 mb-2">
@@ -130,7 +126,8 @@ const Products = () => {
                   </Button>
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 
@@ -143,9 +140,11 @@ const Products = () => {
             Browse through our extensive range of premium Ayurvedic products, 
             consultations, and wellness programs tailored to your unique needs.
           </p>
-          <Button variant="hero" size="lg" className="btn-glow shadow-glow">
-            View All Products
-          </Button>
+          <Link to="/products">
+            <Button variant="hero" size="lg" className="btn-glow shadow-glow">
+              View All Products
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
